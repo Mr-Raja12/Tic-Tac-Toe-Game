@@ -7,29 +7,31 @@ import java.util.Scanner;
  *Case 2 Allow player to to chose X O
  * Case 3 is to allow player to see the board, so he can choose the valid cells to make his move during his turn.
  */
+
 public class TicTacToe {
 
-    //Creating a default constructor
+	  //Creating a default constructor
     public TicTacToe() {
         System.out.println("Welcome to Tic Tac Toe Game !!!");
     }
+
     static char[] board = new char[10];
     static char player, computer;
+    static int playerLocation;
     static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
 
         //Initialize the object
         TicTacToe obj = new TicTacToe();
-
         //Initialize board
-       obj.initialize();
-
+        obj.initialize();
         //Checking for player choice
         chooseOption();
-
         //Showing board
         showBoard();
+        //Player move
+        playerMove();
 
     }
 
@@ -68,5 +70,31 @@ public class TicTacToe {
         System.out.println(board[4] + " | " + board[5] + " | " + board[6]);
         System.out.println("---------");
         System.out.println(board[7] + " | " + board[8] + " | " + board[9]);
+    }
+
+    //To make the player move
+    public static void playerMove()
+    {
+        System.out.println("Enter the position between (1-9) you want to make your move first :");
+        playerLocation = scan.nextInt();
+        if (playerLocation > 0 && playerLocation < 10)
+        {
+            if (board[playerLocation] == ' ')
+            {
+                board[playerLocation] = player;
+                showBoard();
+            }
+            else if (board[playerLocation] != ' ')
+            {
+                System.err.println("Ah-hh! Position is already chosen. Enter a valid position");
+                showBoard();
+                playerMove();
+            }
+        }
+        else
+        {
+            System.err.println("Invalid choice. Provide a valid position between (1-9)");
+            playerMove();
+        }
     }
 }
