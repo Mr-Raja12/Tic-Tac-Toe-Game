@@ -1,4 +1,5 @@
 package com.bl.tictactoeprogram;
+import java.util.Random;
 import java.util.Scanner;
 /**
  * @author Raja
@@ -10,15 +11,16 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
-	  //Creating a default constructor
+	//Creating a default constructor
     public TicTacToe() {
         System.out.println("Welcome to Tic Tac Toe Game !!!");
     }
 
     static char[] board = new char[10];
     static char player, computer;
-    static int playerLocation;
+    static int playerLocation, computerLocation;
     static Scanner scan = new Scanner(System.in);
+    static Random random = new Random();
 
     public static void main(String[] args) {
 
@@ -32,6 +34,10 @@ public class TicTacToe {
         showBoard();
         //Player move
         playerMove();
+        //Computer move
+        computerMove();
+        //Check available space
+        checkFreeSpace();
 
     }
 
@@ -95,6 +101,48 @@ public class TicTacToe {
         {
             System.err.println("Invalid choice. Provide a valid position between (1-9)");
             playerMove();
+        }
+    }
+
+    //To make the computer move
+    public static void computerMove()
+    {
+        computerLocation = random.nextInt(8)+1;//Random gives 0 to 8 so +1 give you 1 to 9 position.
+        if (computerLocation > 0 && computerLocation < 10)
+        {
+            if (board[computerLocation] == ' ')
+            {
+                board[computerLocation] = computer;
+                showBoard();
+            }
+            else if (board[computerLocation] != ' ')
+            {
+                computerMove();
+                showBoard();
+            }
+        }
+    }
+
+    //To check free space
+    public static void checkFreeSpace()
+    {
+        boolean isSpaceAvailable = false;
+        int numOfFreeSpaces = 0;
+        for(int index=1; index<board.length; index++)
+        {
+            if((board[index] == ' '))
+            {
+                isSpaceAvailable = true;
+                numOfFreeSpaces++;
+            }
+        }
+        if(isSpaceAvailable == false)
+        {
+            System.err.println("Board is full! You can't make another move");
+        }
+        else
+        {
+            System.out.println("Free space is available! you have "+numOfFreeSpaces+ " moves left");
         }
     }
 }
