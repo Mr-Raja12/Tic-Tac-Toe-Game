@@ -1,4 +1,4 @@
-//Use Case 7 is to allow the Tic Tac Toe App to suggest the player to determine after every move the winner or the tie or change the turn.
+//Use Case 8 is to allow computer to move.
 
 package com.bl.tictactoeprogram;
 
@@ -7,16 +7,12 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
-	/*
-	 * Creating a default constructor
-	 */
+	// Creating a default constructor
 	public TicTacToe() {
 		System.out.println("Welcome to Tic Tac Toe Game !!!");
 	}
 
-	/*
-	 * Declaring variables
-	 */
+	// Declaring variables
 	static char[] board = new char[10];// For board
 	static char player, computer;// For assigning x or o
 	static int playerLocation, computerLocation;// For player location
@@ -30,38 +26,34 @@ public class TicTacToe {
 		// Initialize the object
 		TicTacToe obj = new TicTacToe();
 
-		// Starting the game
-		startGame();
-	}
-
-	/*
-	 * Starting the game
-	 */
-	public static void startGame() {
-		int freeSpace = 9;
-		initialize();// Initialize the board
-		showBoard();// Showing the board
-		chooseOption();// Check for player option
-		toss();// Toss to check that who is going to play first
-		while (freeSpace != 0) {
-			System.out.println();
-			turn();// Check for turn
-			break;
+		initialize();
+		showBoard();
+		chooseOption();
+		toss();
+		if (computerFlag == true) {
+			System.out.println("Now Player's Turn");
+			playerMove();
+			computerFlag = false;
+			playerFlag = true;
+		} else if (playerFlag == true) {
+			System.out.println("Now Computer's Turn");
+			computerMove();// Here it's how computer starts to play like me.
+			playerFlag = false;
+			computerFlag = true;
 		}
+		checkGame();
+		System.out.println("Turn Changed");
+
 	}
 
-	/*
-	 * Initialization of game
-	 */
+	// Initialization of game
 	public static void initialize() {
 		for (int i = 1; i < 10; i++) {
 			board[i] = ' ';
 		}
 	}
 
-	/*
-	 * Doing a toss for playing first
-	 */
+	// Doing a toss for playing first
 	public static void toss() {
 		toss = random.nextInt(2);
 		switch (toss) {
@@ -78,9 +70,7 @@ public class TicTacToe {
 		}
 	}
 
-	/*
-	 * Allow player to choose X or O
-	 */
+	// Allow player to choose X or O
 	public static void chooseOption() {
 		System.out.println("Please Select Your Choice Letter : \nProvide 'X' or 'O'");
 		player = check();
@@ -163,9 +153,7 @@ public class TicTacToe {
 		}
 	}
 
-    /*
-     * Check for winning, tie or change turn
-     */
+    //Check for winning, tie or change turn
     public static void checkGame()
     {
         if ((board[1] == player && board[2] == player || board[2] == player && board[3] == player || board[1] == player && board[3] == player) ||
@@ -187,26 +175,10 @@ public class TicTacToe {
                 (board[1] == computer && board[4] == computer || board[4] == computer && board[7] == computer || board[1] == computer && board[7] == computer) ||
                 (board[2] == computer && board[5] == computer || board[5] == computer && board[8] == computer || board[2] == computer && board[8] == computer) ||
                 (board[3] == computer && board[6] == computer || board[6] == computer && board[9] == computer || board[3] == computer && board[9] == computer))
-		{
+        {
 			System.out.println("Computer going to win");
 		} else
-			System.out.println("It may be tie.");
+			System.out.println("It may be a tie.");
 	}
 
-	// Turn until its over
-	public static void turn() {
-		if (computerFlag == true) {
-			System.out.println("Now Player's Turn");
-			playerMove();
-			computerFlag = false;
-			playerFlag = true;
-		} else if (playerFlag == true) {
-			System.out.println("Now Computer's Turn");
-			computerMove();
-			playerFlag = false;
-			computerFlag = true;
-		}
-		checkGame();
-		System.out.println("Turn Changed");
-	}
 }
