@@ -1,15 +1,31 @@
+//This program is all about Tic Tac Toe Game.
+//Starting is to show a Welcome message to this game.
+//Use Case 1 is to create the Tic Tac Toe board.
+//Use Case 2 is to allow player to choose letter X or O;
+//Use Case 3 is to allow player to see the board, so he can choose the valid cells to make his move during his turn.
+//Use Case 4 is to allow player to make a move to a desired location in the board.
+//Use Case 5 is to check for free space before making the desired move.
+//Use Case 6 is to do a toss to check who plays first Player or Computer.
+//Use Case 7 is to allow the Tic Tac Toe App to suggest the player to determine after every move the winner or the tie or change the turn.
+//Use Case 8 is to allow computer to move.
+//Use Case 9 is to check block position and allow player to block the opponent.
 //Use Case 10 is to grab the corner position first during playing the game.
+//Use Case 11 is to grab the subsequent choices that is centre or any available sites.
+//Use Case 12 is to play until the game is over i.e - whether you got winner or board is full(tie).
 
 package com.bl.tictactoeprogram;
 
 import java.util.Random;
 import java.util.Scanner;
+/**
+ * 
+ * @author Raja
+ *
+ */
 
 public class TicTacToe {
 
-    /*
-     * Creating a default constructor
-     */
+    //Creating a default constructor
     public TicTacToe() {
         System.out.println("Welcome to Tic Tac Toe Game !!!");
     }
@@ -49,11 +65,11 @@ public class TicTacToe {
             {
                 break;
             }
-        }
-        if (freeSpace == 0)
-        {
-            System.out.println("Board is full");
-            System.out.println("It is a tie");
+            else if (freeSpace == 0)
+            {
+                System.out.println("Board is full");
+                System.out.println("It is a tie");
+            }
         }
     }
 
@@ -114,9 +130,7 @@ public class TicTacToe {
         }
     }
 
-    /*
-     * Allow player to choose X or O
-     */
+    //Allow player to choose X or O
     public static void chooseOption() {
         System.out.println("Please Select Your Choice Letter : \nProvide 'X' or 'O'");
         player = check();
@@ -192,27 +206,67 @@ public class TicTacToe {
         }
     }
 
-    /*
-     * Check for essential position
-     */
+    //Check for essential position
     public static void essentialPosition() {
+        boolean corner = false;
         for (int i = 1; i < board.length; i++)
         {
             if ( i == 1 && board[i] == ' ')
             {
                 System.out.println("Corner position 1 is available");
+                corner = true;
             }
             else if (i == 3 && board[i] == ' ')
             {
                 System.out.println("Corner position 3 is available");
+                corner = true;
             }
             else if (i == 7 && board[i] == ' ')
             {
                 System.out.println("Corner position 7 is available");
+                corner = true;
             }
             else if (i == 9 && board[i] == ' ')
             {
                 System.out.println("Corner position 9 is available");
+                corner = true;
+            }
+        }
+        if (!corner)
+        {
+            System.out.println("No more corner position is available");
+            checkSubsequentPosition();//Checking for subsequent position
+        }
+    }
+
+    //Check Subsequent Position
+    public static void checkSubsequentPosition() {
+        boolean middle = false;
+        if (board[5] == ' ')
+        {
+            System.out.println("Mid position 5 is available");
+            middle = true;
+        }
+        else {
+            for (int i = 2; i < board.length; i=i+2)// i started from 2 because available sides are 2 & 8 for vertical
+                                                    // and 4 & 6 are horizontal sides.
+            {
+                if (i == 2 && board[i] == ' ')
+                {
+                    System.out.println("Side position 2 is available");
+                }
+                else if (i == 4 && board[i] == ' ')
+                {
+                    System.out.println("Side position 4 is available");
+                }
+                else if (i == 6 && board[i] == ' ')
+                {
+                    System.out.println("Side position 6 is available");
+                }
+                else if (i == 8 && board[i] == ' ')
+                {
+                    System.out.println("Side position 8 is available");
+                }
             }
         }
     }
@@ -267,64 +321,35 @@ public class TicTacToe {
         }
     }
 
-    /*
-     * Check for winning, tie or change turn
-     */
+    //Check for winning, tie or change turn
     public static void checkGame()
     {
         if
-                (( board[1] == player && board[2] == player && board[3] == ' '
-                || board[2] == player && board[3] == player && board[1] == ' '
-                || board[1] == player && board[3] == player && board[2] == ' ')
-                || (board[4] == player && board[5] == player && board[6] == ' '
-                || board[5] == player && board[6] == player && board[4] == ' '
-                || board[4] == player && board[6] == player && board[5] == ' ')
-                || (board[7] == player && board[8] == player && board[9] == ' '
-                || board[8] == player && board[9] == player && board[7] == ' '
-                || board[7] == player && board[9] == player && board[8] == ' ')
-                || (board[1] == player && board[5] == player && board[9] == ' '
-                || board[5] == player && board[9] == player && board[1] == ' '
-                || board[1] == player && board[9] == player && board[5] == ' ')
-                || (board[3] == player && board[5] == player && board[7] == ' '
-                || board[5] == player && board[7] == player && board[3] == ' '
-                || board[3] == player && board[7] == player && board[5] == ' ')
-                || (board[1] == player && board[4] == player && board[7] == ' '
-                || board[4] == player && board[7] == player && board[1] == ' '
-                || board[1] == player && board[7] == player && board[4] == ' ')
-                || (board[2] == player && board[5] == player && board[8] == ' '
-                || board[5] == player && board[8] == player && board[2] == ' '
-                || board[2] == player && board[8] == player && board[5] == ' ')
-                || (board[3] == player && board[6] == player && board[9] == ' '
-                || board[6] == player && board[9] == player && board[3] == ' '
-                || board[3] == player && board[9] == player && board[6] == ' '))
+        (( board[1] == player && board[2] == player && board[3] == ' '
+        || (board[4] == player && board[5] == player && board[6] == ' ')
+        || (board[7] == player && board[8] == player && board[9] == ' '
+        || board[7] == player && board[9] == player && board[8] == ' ')
+        || (board[1] == player && board[5] == player && board[9] == ' '
+        || (board[3] == player && board[5] == player && board[7] == ' ')
+        || board[4] == player && board[7] == player && board[1] == ' '
+        || (board[2] == player && board[5] == player && board[8] == ' ')
+        || (board[3] == player && board[6] == player && board[9] == ' '))))
+
         {
             System.out.println("Player going to win");
         }
         else if
-                        (( board[1] == computer && board[2] == computer && board[3] == ' '
-                        || board[2] == computer && board[3] == computer && board[1] == ' '
-                        || board[1] == computer && board[3] == computer && board[2] == ' ')
-                        || (board[4] == computer && board[5] == computer && board[6] == ' '
-                        || board[5] == computer && board[6] == computer && board[4] == ' '
-                        || board[4] == computer && board[6] == computer && board[5] == ' ')
-                        || (board[7] == computer && board[8] == computer && board[9] == ' '
-                        || board[8] == computer && board[9] == computer && board[7] == ' '
-                        || board[7] == computer && board[9] == computer && board[8] == ' ')
-                        || (board[1] == computer && board[5] == computer && board[9] == ' '
-                        || board[5] == computer && board[9] == computer && board[1] == ' '
-                        || board[1] == computer && board[9] == computer && board[5] == ' ')
-                        || (board[3] == computer && board[5] == computer && board[7] == ' '
-                        || board[5] == computer && board[7] == computer && board[3] == ' '
-                        || board[3] == computer && board[7] == computer && board[5] == ' ')
-                        || (board[1] == computer && board[4] == computer && board[7] == ' '
-                        || board[4] == computer && board[7] == computer && board[1] == ' '
-                        || board[1] == computer && board[7] == computer && board[4] == ' ')
-                        || (board[2] == computer && board[5] == computer && board[8] == ' '
-                        || board[5] == computer && board[8] == computer && board[2] == ' '
-                        || board[2] == computer && board[8] == computer && board[5] == ' ')
-                        || (board[3] == computer && board[6] == computer && board[9] == ' '
-                        || board[6] == computer && board[9] == computer && board[3] == ' '
-                        || board[3] == computer && board[9] == computer && board[6] == ' '))
+
+                (( board[1] == player && board[2] == player && board[3] == ' '
+                || (board[4] == player && board[5] == player && board[6] == ' ')
+                || (board[7] == player && board[8] == player && board[9] == ' '
+                || board[7] == player && board[9] == player && board[8] == ' ')
+                || (board[1] == player && board[5] == player && board[9] == ' '
+                || (board[3] == player && board[5] == player && board[7] == ' ')
+                || board[4] == player && board[7] == player && board[1] == ' '
+                || (board[2] == player && board[5] == player && board[8] == ' ')
+                || (board[3] == player && board[6] == player && board[9] == ' '))))
+
         {
             System.out.println("Computer going to win");
         }
