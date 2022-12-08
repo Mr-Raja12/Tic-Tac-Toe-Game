@@ -11,7 +11,6 @@
 //Use Case 9 is to check block position and allow player to block the opponent.
 //Use Case 10 is to grab the corner position first during playing the game.
 //Use Case 11 is to grab the subsequent choices that is centre or any available sites.
-//Use Case 12 is to play until the game is over i.e - whether you got winner or board is full(tie).
 
 package com.bl.tictactoeprogram;
 
@@ -63,14 +62,10 @@ public class TicTacToe {
             turn();
             if (checkWinner())
             {
-                break;
-            }
-            else if (freeSpace == 0)
-            {
-                System.out.println("Board is full");
-                System.out.println("It is a tie");
+                continue;
             }
         }
+
     }
 
     public static boolean checkWinner()
@@ -325,22 +320,8 @@ public class TicTacToe {
     public static void checkGame()
     {
         if
-        (( board[1] == player && board[2] == player && board[3] == ' '
-        || (board[4] == player && board[5] == player && board[6] == ' ')
-        || (board[7] == player && board[8] == player && board[9] == ' '
-        || board[7] == player && board[9] == player && board[8] == ' ')
-        || (board[1] == player && board[5] == player && board[9] == ' '
-        || (board[3] == player && board[5] == player && board[7] == ' ')
-        || board[4] == player && board[7] == player && board[1] == ' '
-        || (board[2] == player && board[5] == player && board[8] == ' ')
-        || (board[3] == player && board[6] == player && board[9] == ' '))))
 
-        {
-            System.out.println("Player going to win");
-        }
-        else if
-
-                (( board[1] == player && board[2] == player && board[3] == ' '
+(( board[1] == player && board[2] == player && board[3] == ' '
                 || (board[4] == player && board[5] == player && board[6] == ' ')
                 || (board[7] == player && board[8] == player && board[9] == ' '
                 || board[7] == player && board[9] == player && board[8] == ' ')
@@ -349,7 +330,20 @@ public class TicTacToe {
                 || board[4] == player && board[7] == player && board[1] == ' '
                 || (board[2] == player && board[5] == player && board[8] == ' ')
                 || (board[3] == player && board[6] == player && board[9] == ' '))))
+        {
+            System.out.println("Player going to win");
+        }
+        else if
 
+(( board[1] == player && board[2] == player && board[3] == ' '
+                || (board[4] == player && board[5] == player && board[6] == ' ')
+                || (board[7] == player && board[8] == player && board[9] == ' '
+                || board[7] == player && board[9] == player && board[8] == ' ')
+                || (board[1] == player && board[5] == player && board[9] == ' '
+                || (board[3] == player && board[5] == player && board[7] == ' ')
+                || board[4] == player && board[7] == player && board[1] == ' '
+                || (board[2] == player && board[5] == player && board[8] == ' ')
+                || (board[3] == player && board[6] == player && board[9] == ' '))))
         {
             System.out.println("Computer going to win");
         }
